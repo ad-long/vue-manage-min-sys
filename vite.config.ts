@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import VueSetupExtend from 'vite-plugin-vue-setup-extend';
+import { resolve } from "path";
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
@@ -10,6 +11,17 @@ const root: string = process.cwd();
 // 跨域代理重写
 const regExps = (value: string, reg: string): string => {
 	return value.replace(new RegExp(`^${reg}`, "g"), "");
+};
+
+// 路径查找
+const pathResolve = (dir: string): string => {
+	return resolve(__dirname, ".", dir);
+};
+
+// 设置别名
+const alias: Record<string, string> = {
+	"/@": pathResolve("src"),
+	"@build": pathResolve("build")
 };
 
 export default defineConfig(({ command, mode }) => {
@@ -33,6 +45,7 @@ export default defineConfig(({ command, mode }) => {
 				resolvers: [ElementPlusResolver()]
 			})
 		],
+		resolve: { alias },
 		server: {
 			// 是否开启 https
 			https: false,
@@ -50,7 +63,6 @@ export default defineConfig(({ command, mode }) => {
 					rewrite: (path: string) => regExps(path, env.VITE_PROXY_DOMAIN)
 				}
 			}
-
 		}
 	}
 }

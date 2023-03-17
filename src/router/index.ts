@@ -1,6 +1,17 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import { usePermissStore } from '../store/permiss';
 import Home from '../layout/home.vue';
+import { innerRouters } from '../layout/modules';
+
+let ir = innerRouters();
+ir.push({
+    path: '/user',
+    name: 'user',
+    meta: {
+        title: '个人中心',
+    },
+    component: () => import(/* webpackChunkName: "user" */ '../views/user.vue'),
+});
 
 const routes: RouteRecordRaw[] = [
     {
@@ -11,43 +22,7 @@ const routes: RouteRecordRaw[] = [
         path: '/',
         name: 'Home',
         component: Home,
-        children: [
-            {
-                path: '/dashboard',
-                name: 'dashboard',
-                meta: {
-                    title: '系统首页',
-                    permiss: '1',
-                },
-                component: () => import(/* webpackChunkName: "dashboard" */ '../views/dashboard.vue'),
-            },
-            {
-                path: '/table',
-                name: 'basetable',
-                meta: {
-                    title: '表格',
-                    permiss: '2',
-                },
-                component: () => import(/* webpackChunkName: "table" */ '../views/table.vue'),
-            },
-            {
-                path: '/tabs',
-                name: 'tabs',
-                meta: {
-                    title: 'tab标签',
-                    permiss: '3',
-                },
-                component: () => import(/* webpackChunkName: "tabs" */ '../views/tabs.vue'),
-            },
-            {
-                path: '/user',
-                name: 'user',
-                meta: {
-                    title: '个人中心',
-                },
-                component: () => import(/* webpackChunkName: "user" */ '../views/user.vue'),
-            },
-        ],
+        children: ir,
     },
     {
         path: '/login',
