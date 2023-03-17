@@ -101,23 +101,10 @@
 				</el-card>
 			</el-col>
 		</el-row>
-		<el-row :gutter="20">
-			<el-col :span="12">
-				<el-card shadow="hover">
-					<schart ref="bar" class="schart" canvasId="bar" :options="options"></schart>
-				</el-card>
-			</el-col>
-			<el-col :span="12">
-				<el-card shadow="hover">
-					<schart ref="line" class="schart" canvasId="line" :options="options2"></schart>
-				</el-card>
-			</el-col>
-		</el-row>
 	</div>
 </template>
 
 <script setup lang="ts" name="dashboard">
-import Schart from 'vue-schart';
 import { reactive } from 'vue';
 import imgurl from '../assets/img/img.jpg';
 
@@ -294,8 +281,4 @@ const todoList = reactive([
 	color: #999;
 }
 
-.schart {
-	width: 100%;
-	height: 300px;
-}
 </style>
