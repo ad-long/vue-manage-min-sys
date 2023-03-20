@@ -44,7 +44,6 @@
 	</div>
 </template>
 <script setup lang="ts">
-import { onMounted } from 'vue';
 import { useSidebarStore } from '../store/sidebar';
 import { useRouter } from 'vue-router';
 import imgurl from '../assets/img/img.jpg';
@@ -57,12 +56,6 @@ const sidebar = useSidebarStore();
 const collapseChage = () => {
 	sidebar.handleCollapse();
 };
-
-onMounted(() => {
-	if (document.body.clientWidth < 1500) {
-		collapseChage();
-	}
-});
 
 // 用户名下拉菜单选择事件
 const router = useRouter();
