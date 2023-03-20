@@ -3,15 +3,15 @@ import { dashboard } from "./dashboard";
 import { table } from "./table";
 import { tabs } from "./tabs";
 
-export const items = [
+export const allMenus = [
     dashboard,
     table,
     tabs,
 ];
 
-export const innerRouters = () => {
+export const getRoutes = (menus: []) => {
     let ret = []
-    for (let i of items) {
+    for (let i of menus) {
         if ("subs" in i) {
             for (let ii of i.subs) {
                 if ("subs" in ii) {

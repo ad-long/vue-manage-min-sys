@@ -1,14 +1,11 @@
 <template>
 	<div class="tags" v-if="tags.show">
 		<ul>
-			<li
-				class="tags-li"
-				v-for="(item, index) in tags.list"
-				:class="{ active: isActive(item.path) }"
-				:key="index"
-			>
+			<li class="tags-li" v-for="(item, index) in tags.list" :class="{ active: isActive(item.path) }" :key="index">
 				<router-link :to="item.path" class="tags-li-title">{{ item.title }}</router-link>
-				<el-icon @click="closeTags(index)"><Close /></el-icon>
+				<el-icon @click="closeTag(index)">
+					<Close />
+				</el-icon>
 			</li>
 		</ul>
 		<div class="tags-close-box">
@@ -41,42 +38,44 @@ const isActive = (path: string) => {
 };
 
 const tags = useTagsStore();
+
 // 关闭单个标签
-const closeTags = (index: number) => {
-	const delItem = tags.list[index];
-	tags.delTagsItem(index);
+const closeTag = (index: number) => {
+	tags.removeTagsItem(index);
 	const item = tags.list[index] ? tags.list[index] : tags.list[index - 1];
 	if (item) {
-		delItem.path === route.fullPath && router.push(item.path);
+		router.push(item.path);
 	} else {
-		router.push('/');
+		router.push("/");
 	}
 };
 
 // 设置标签
-const setTags = (route: any) => {
+const pushTag = (route: any) => {
 	const isExist = tags.list.some(item => {
 		return item.path === route.fullPath;
 	});
 	if (!isExist) {
-		if (tags.list.length >= 8) tags.delTagsItem(0);
-		tags.setTagsItem({
+		if (tags.list.length >= 8) tags.removeTagsItem(0);
+		tags.pushTagsItem({
 			name: route.name,
 			title: route.meta.title,
 			path: route.fullPath
 		});
 	}
 };
-setTags(route);
+
+pushTag(route);
 onBeforeRouteUpdate(to => {
-	setTags(to);
+	pushTag(to);
 });
 
 // 关闭全部标签
 const closeAll = () => {
 	tags.clearTags();
-	router.push('/');
+	router.push("/");
 };
+
 // 关闭其他标签
 const closeOther = () => {
 	const curItem = tags.list.filter(item => {
@@ -87,12 +86,6 @@ const closeOther = () => {
 const handleTags = (command: string) => {
 	command === 'other' ? closeOther() : closeAll();
 };
-
-// 关闭当前页面的标签页
-// tags.closeCurrentTag({
-//     $router: router,
-//     $route: route
-// });
 </script>
 
 <style>

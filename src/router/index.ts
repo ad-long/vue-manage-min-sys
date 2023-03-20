@@ -1,10 +1,10 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import { usePermissStore } from '../store/permiss';
 import Home from '../layout/home.vue';
-import { innerRouters } from '../layout/modules';
+import { getRoutes, allMenus } from '../layout/modules';
 import NProgress from "../utils/progress";
 
-let ir = innerRouters();
+let ir = getRoutes(allMenus);
 ir.push({
     path: '/user',
     name: 'user',

@@ -2,7 +2,7 @@
     <div class="sidebar">
         <el-menu class="sidebar-el-menu" :default-active="sidebar.index" :collapse="sidebar.collapse"
             background-color="#324157" text-color="#bfcbd9" active-text-color="#20a0ff" unique-opened router>
-            <template v-for="item in items">
+            <template v-for="item in allMenus">
                 <template v-if="item.subs">
                     <el-sub-menu :index="item.index" :key="item.index" v-permiss="item.permiss">
                         <template #title>
@@ -40,7 +40,7 @@
 
 <script setup lang="ts">
 import { useSidebarStore } from '../store/sidebar';
-import { items } from "./modules/index";
+import { allMenus } from "./modules/index";
 
 const sidebar = useSidebarStore();
 </script>

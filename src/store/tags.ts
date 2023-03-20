@@ -21,10 +21,10 @@ export const useTagsStore = defineStore('tags', {
 		}
 	},
 	actions: {
-		delTagsItem(index: number) {
+		removeTagsItem(index: number) {
 			this.list.splice(index, 1);
 		},
-		setTagsItem(data: ListItem) {
+		pushTagsItem(data: ListItem) {
 			this.list.push(data);
 		},
 		clearTags() {
