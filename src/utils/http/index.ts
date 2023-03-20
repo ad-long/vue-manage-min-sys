@@ -1,10 +1,10 @@
-import axios, {AxiosInstance, AxiosError, AxiosResponse, AxiosRequestConfig} from 'axios';
+import axios, { AxiosInstance, AxiosError, AxiosResponse, AxiosRequestConfig } from 'axios';
 
-const service:AxiosInstance = axios.create({
+const http: AxiosInstance = axios.create({
     timeout: 5000
 });
 
-service.interceptors.request.use(
+http.interceptors.request.use(
     (config: AxiosRequestConfig) => {
         return config;
     },
@@ -14,7 +14,7 @@ service.interceptors.request.use(
     }
 );
 
-service.interceptors.response.use(
+http.interceptors.response.use(
     (response: AxiosResponse) => {
         if (response.status === 200) {
             return response;
@@ -28,4 +28,4 @@ service.interceptors.response.use(
     }
 );
 
-export default service;
+export default http;

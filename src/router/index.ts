@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import { usePermissStore } from '../store/permiss';
 import Home from '../layout/home.vue';
 import { innerRouters } from '../layout/modules';
+import NProgress from "../utils/progress";
 
 let ir = innerRouters();
 ir.push({
@@ -48,6 +49,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+    NProgress.start();
     document.title = `${to.meta.title} | vue-manage-system`;
     const role = localStorage.getItem('ms_username');
     const permiss = usePermissStore();
@@ -59,6 +61,10 @@ router.beforeEach((to, from, next) => {
     } else {
         next();
     }
+});
+
+router.afterEach(to => {
+    NProgress.done()
 });
 
 export default router;

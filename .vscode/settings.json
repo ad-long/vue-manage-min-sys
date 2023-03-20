@@ -7,8 +7,10 @@
     "source.fixAll": true
   },
   "[vue]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "Vue.volar"
   },
-  "i18n-ally.localesPaths": ["locales"],
+  "i18n-ally.localesPaths": [
+    "locales"
+  ],
   "i18n-ally.keystyle": "nested"
 }
