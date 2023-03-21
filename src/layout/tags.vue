@@ -39,8 +39,18 @@ const isActive = (path: string) => {
 
 const tags = useTagsStore();
 
+const onlyHomePage = () => {
+	if (tags.list.length === 1 && tags.list[0].path === "/dashboard") {
+		return true;
+	}
+}
+
 // 关闭单个标签
 const closeTag = (index: number) => {
+	if (onlyHomePage()) {
+		return;
+	}
+
 	tags.removeTagsItem(index);
 	const item = tags.list[index] ? tags.list[index] : tags.list[index - 1];
 	if (item) {
@@ -72,6 +82,9 @@ onBeforeRouteUpdate(to => {
 
 // 关闭全部标签
 const closeAll = () => {
+	if (onlyHomePage()) {
+		return;
+	}
 	tags.clearTags();
 	router.push("/");
 };
